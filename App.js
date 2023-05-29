@@ -19,6 +19,11 @@ export default function App() {
 				<Stack.Navigator>
 					<Stack.Screen
 						options={{ headerShown: false, animationEnabled: false }}
+						name='Home'
+						component={Home}
+					/>
+					<Stack.Screen
+						options={{ headerShown: false, animationEnabled: false }}
 						name='Login'
 						component={Login}
 					/>
@@ -26,11 +31,6 @@ export default function App() {
 						options={{ headerShown: false, animationEnabled: false }}
 						name='Register'
 						component={Register}
-					/>
-					<Stack.Screen
-						options={{ headerShown: false, animationEnabled: false }}
-						name='Home'
-						component={Home}
 					/>
 				</Stack.Navigator>
 			</AuthContextProvider>
@@ -41,8 +41,5 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
 })

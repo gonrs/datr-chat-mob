@@ -6,7 +6,7 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useColor } from '../hooks/useColor'
 import { colors } from '../../assets/theme/color'
@@ -14,20 +14,33 @@ import { TextInput } from 'react-native-gesture-handler'
 import { auth } from '../../firebase'
 import { signOut } from 'firebase/auth'
 
+import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 export default function Home({ navigation }) {
-	const { currentUser } = useContext(AuthContext)
-	const { theme } = useColor(currentUser)
-	function logout() {
-		console.log('LogOut')
-		signOut(auth)
-	}
+	const { currentUser, setisLog, isLog } = useContext(AuthContext)
 	useEffect(() => {
 		if (!currentUser) {
 			navigation.navigate('Login')
 		}
 	}, [currentUser, navigation])
+	const { theme } = useColor(currentUser)
+	function logout() {
+		console.log('LogOut')
+		AsyncStorage.removeItem('currentUser')
+		setisLog(!isLog)
+		signOut(auth)
+		console.log(currentUser ? true : false)
+	}
+
+	let photourl
+	if (currentUser && currentUser.user) {
+		photourl = currentUser.user.photoURL
+	} else if (currentUser && currentUser.photoURL) {
+		photourl = currentUser.photoURL
+	}
 	return (
-		<View style={theme === 'white' ? styles.homeCon : styles2.homeCon}>
+		<SafeAreaView style={theme === 'white' ? styles.homeCon : styles2.homeCon}>
 			<View style={theme === 'white' ? styles.homeHeader : styles2.homeHeader}>
 				<View style={theme === 'white' ? styles.topInfo : styles2.topInfo}>
 					<Text
@@ -36,12 +49,11 @@ export default function Home({ navigation }) {
 						DATR MOBILE
 					</Text>
 					<Image
-						source={{
-							uri:
-								currentUser && currentUser.user
-									? currentUser.user.photoURL
-									: currentUser.photoURL,
-						}}
+						source={
+							currentUser && {
+								uri: photourl,
+							}
+						}
 						style={theme === 'white' ? styles.homeImg : styles2.homeImg}
 					/>
 				</View>
@@ -62,9 +74,10 @@ export default function Home({ navigation }) {
 					<Text
 						style={theme === 'white' ? styles.userLastmes : styles2.userLastmes}
 					>
-						{currentUser && currentUser.user
-							? currentUser.user.displayName
-							: currentUser.displayName}
+						{currentUser &&
+							(currentUser.user
+								? currentUser.user.displayName
+								: currentUser.displayName)}
 					</Text>
 					<Text style={theme === 'white' ? styles.userTime : styles2.userTime}>
 						Time
@@ -74,21 +87,20 @@ export default function Home({ navigation }) {
 					<Text style={styles.text}>Log out</Text>
 				</TouchableOpacity>
 			</ScrollView>
-		</View>
+		</SafeAreaView>
 	)
 }
 const styles2 = StyleSheet.create({
 	homeCon: {
 		flex: 1,
 		backgroundColor: colors.dark.bg,
-		justifyContent: 'flex-start',
+		// justifyContent: 'flex-start',
 		alignItems: 'center',
-		height: '100%',
+		// height: '100%',
 	},
 	homeHeader: {
 		backgroundColor: colors.dark.header,
 		width: '100%',
-		height: '17%',
 	},
 	topInfo: {
 		width: '100%',
@@ -127,7 +139,6 @@ const styles2 = StyleSheet.create({
 	},
 	homeUsers: {
 		width: '100%',
-		height: '83%',
 		// alignItems: 'center',
 	},
 	user: {

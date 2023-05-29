@@ -17,18 +17,18 @@ export const AuthContextProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const { theme } = useColor(currentUser)
-
+	const [isLog, setisLog] = useState(false)
 	useEffect(() => {
-		console.log('1')
+		console.log('effect')
 		const unsubscribe = auth.onAuthStateChanged(user => {
-			console.log(1)
+			console.log('Auth user = ', user)
 			if (user) {
 				AsyncStorage.setItem('currentUser', JSON.stringify(user))
 				setCurrentUser(user)
-				console.log('SetUser =', user)
+				console.log('Пользователь вошел в аккаунта.')
 			} else {
-				AsyncStorage.removeItem('currentUser')
 				setCurrentUser(null)
+				console.log('Пользователь вышел из аккаунта.')
 			}
 			setLoading(false)
 		})
@@ -38,38 +38,17 @@ export const AuthContextProvider = ({ children }) => {
 				setCurrentUser(JSON.parse(user))
 				setLoading(false)
 			} else {
+				setCurrentUser(null)
 				setLoading(false)
 			}
 			setLoading(false)
+			console.log('effect2')
 		})
 		return () => unsubscribe()
-	}, [])
+	}, [isLog])
 
-	const signIn = (email, password) => {
-		return auth.signInWithEmailAndPassword(email, password)
-	}
-
-	const signUp = (email, password) => {
-		return auth.createUserWithEmailAndPassword(email, password)
-	}
-
-	const signOut = () => {
-		return signOut(auth)
-	}
-
-	const resetPassword = email => {
-		return auth.sendPasswordResetEmail(email)
-	}
-
-	const updateEmail = email => {
-		return currentUser.updateEmail(email)
-	}
-
-	const updatePassword = password => {
-		return currentUser.updatePassword(password)
-	}
 	return (
-		<AuthContext.Provider value={{ currentUser, theme }}>
+		<AuthContext.Provider value={{ currentUser, theme, setisLog ,isLog }}>
 			{loading ? <Loading /> : children}
 		</AuthContext.Provider>
 	)
