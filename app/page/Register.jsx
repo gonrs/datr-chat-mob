@@ -11,6 +11,7 @@ import { doc, setDoc } from 'firebase/firestore'
 import { auth, db } from '../../firebase'
 import { colors } from '../../assets/theme/color'
 import { AuthContext } from '../context/AuthContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Register = ({ navigation }) => {
 	const { currentUser } = useContext(AuthContext)
@@ -35,7 +36,8 @@ const Register = ({ navigation }) => {
 		if (displayName && email && password) {
 			try {
 				const res = await createUserWithEmailAndPassword(auth, email, password)
-				console.log('register success')
+				// console.log(res)
+				AsyncStorage.setItem('currentUser', JSON.stringify(res))
 				await updateProfile(res.user, {
 					displayName,
 					photoURL:
@@ -92,7 +94,7 @@ const Register = ({ navigation }) => {
 					placeholder='Email@mail.xyz'
 					value={email}
 					onChangeText={setEmail}
-					keyboardType='email'
+					keyboardType='email-address'
 				/>
 				<TextInput
 					style={styles.input}

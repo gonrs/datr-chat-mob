@@ -11,12 +11,11 @@ import { AuthContext } from '../context/AuthContext'
 import { useColor } from '../hooks/useColor'
 import { colors } from '../../assets/theme/color'
 import { TextInput } from 'react-native-gesture-handler'
-import { signOut } from 'firebase/auth'
-import { auth } from '../../firebase'
 
 export default function Home({ navigation }) {
 	const { currentUser } = useContext(AuthContext)
 	const { theme } = useColor(currentUser)
+
 	if (!currentUser) {
 		navigation.navigate('Login')
 	} else if (currentUser) {
@@ -65,7 +64,7 @@ export default function Home({ navigation }) {
 							Time
 						</Text>
 					</View>
-					<TouchableOpacity onPress={() => signOut(auth)}>
+					<TouchableOpacity onPress={() => {}}>
 						<Text style={styles.text}>Log out</Text>
 					</TouchableOpacity>
 				</ScrollView>

@@ -4,7 +4,7 @@ import React from 'react'
 export default function Loading() {
 	return (
 		<View>
-			<Text>Loading</Text>
+			<Text style={{ fontSize: 100 }}>Loading</Text>
 		</View>
 	)
 }

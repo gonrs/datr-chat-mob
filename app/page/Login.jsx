@@ -11,6 +11,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { useColor } from '../hooks/useColor'
 import { AuthContext } from '../context/AuthContext'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
 	const { currentUser } = useContext(AuthContext)
@@ -26,7 +27,11 @@ const Login = ({ navigation }) => {
 
 	const handleLogin = async () => {
 		try {
-			await signInWithEmailAndPassword(auth, email, password)
+			AsyncStorage.setItem('userPass', password)
+			await signInWithEmailAndPassword(auth, email, password).then(user => {
+				AsyncStorage.setItem('currentUser', JSON.stringify(user))
+				console.log(user)
+			})
 			navigation.navigate('Home')
 		} catch (err) {
 			console.log(err)
@@ -51,7 +56,7 @@ const Login = ({ navigation }) => {
 					placeholder='Email@mail.xyz'
 					value={email}
 					onChangeText={setEmail}
-					keyboardType='email-adress'
+					keyboardType={'email-address'}
 				/>
 				<TextInput
 					style={theme === 'white' ? styles.input : styles2.input}
