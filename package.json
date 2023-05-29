@@ -9,13 +9,24 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-firebase/app": "^17.5.0",
+    "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-native-community/masked-view": "^0.1.11",
+    "@react-native-firebase/app": "^17.4.2",
+    "@react-navigation/native": "^6.1.6",
+    "@react-navigation/native-stack": "^6.9.12",
+    "@react-navigation/stack": "^6.3.16",
     "eas": "^0.1.0",
-    "expo": "~48.0.15",
+    "expo": "^46.0.21",
     "expo-status-bar": "~1.4.4",
-    "firebase": "^9.22.0",
+    "firebase": "^9.22.1",
+    "firebase-tools": "^0.1.6",
+    "fontfaceobserver": "^2.3.0",
     "react": "18.2.0",
-    "react-native": "0.71.8"
+    "react-firebase-hooks": "^5.1.1",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-reanimated": "~2.14.4",
+    "react-native-safe-area-context": "^4.5.0",
+    "react-native-screens": "~3.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

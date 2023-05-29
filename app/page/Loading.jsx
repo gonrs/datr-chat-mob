@@ -1,14 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Logis = () => {
+export default function Loading() {
 	return (
 		<View>
-			<Text>Logis</Text>
+			<Text>Loading</Text>
 		</View>
 	)
 }
-
-export default Logis
 
 const styles = StyleSheet.create({})
