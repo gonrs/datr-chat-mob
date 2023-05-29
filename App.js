@@ -13,14 +13,14 @@ import Home from './app/page/Home'
 const Stack = createStackNavigator()
 export default function App() {
 	return (
-		<AuthContextProvider>
-			<NavigationContainer>
+		<NavigationContainer>
+			<AuthContextProvider>
 				<StatusBar backgroundColor={colors.dark.header} style='light' />
 				<Stack.Navigator>
 					<Stack.Screen
 						options={{ headerShown: false, animationEnabled: false }}
-						name='Home'
-						component={Home}
+						name='Login'
+						component={Login}
 					/>
 					<Stack.Screen
 						options={{ headerShown: false, animationEnabled: false }}
@@ -29,12 +29,12 @@ export default function App() {
 					/>
 					<Stack.Screen
 						options={{ headerShown: false, animationEnabled: false }}
-						name='Login'
-						component={Login}
+						name='Home'
+						component={Home}
 					/>
 				</Stack.Navigator>
-			</NavigationContainer>
-		</AuthContextProvider>
+			</AuthContextProvider>
+		</NavigationContainer>
 	)
 }
 

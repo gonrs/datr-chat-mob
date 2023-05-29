@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
 	StyleSheet,
 	Text,
@@ -15,9 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
 	const { currentUser } = useContext(AuthContext)
-	if (currentUser) {
-		navigation.navigate('Home')
-	}
+
 	const { theme } = useColor(currentUser)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -30,7 +28,7 @@ const Login = ({ navigation }) => {
 			AsyncStorage.setItem('userPass', password)
 			await signInWithEmailAndPassword(auth, email, password).then(user => {
 				AsyncStorage.setItem('currentUser', JSON.stringify(user))
-				console.log(user)
+				// console.log('Login + ', user.displayName)
 			})
 			navigation.navigate('Home')
 		} catch (err) {
@@ -42,6 +40,12 @@ const Login = ({ navigation }) => {
 	function handleRegirect() {
 		navigation.navigate('Register')
 	}
+
+	useEffect(() => {
+		if (currentUser) {
+			navigation.navigate('Home')
+		}
+	}, [currentUser, navigation])
 
 	return (
 		<View
