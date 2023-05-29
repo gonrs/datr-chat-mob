@@ -19,11 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Home({ navigation }) {
 	const { currentUser, setisLog, isLog } = useContext(AuthContext)
-	useEffect(() => {
-		if (!currentUser) {
-			navigation.navigate('Login')
-		}
-	}, [currentUser, navigation])
+
 	const { theme } = useColor(currentUser)
 	function logout() {
 		console.log('LogOut')
@@ -39,6 +35,11 @@ export default function Home({ navigation }) {
 	} else if (currentUser && currentUser.photoURL) {
 		photourl = currentUser.photoURL
 	}
+	useEffect(() => {
+		if (!currentUser) {
+			navigation.navigate('Login')
+		}
+	}, [currentUser, navigation, isLog])
 	return (
 		<SafeAreaView style={theme === 'white' ? styles.homeCon : styles2.homeCon}>
 			<View style={theme === 'white' ? styles.homeHeader : styles2.homeHeader}>

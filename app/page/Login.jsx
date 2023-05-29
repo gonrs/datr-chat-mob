@@ -14,7 +14,7 @@ import { AuthContext } from '../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
-	const { currentUser } = useContext(AuthContext)
+	const { currentUser, isLog } = useContext(AuthContext)
 
 	const { theme } = useColor(currentUser)
 	const [email, setEmail] = useState('')
@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
 		if (currentUser) {
 			navigation.navigate('Home')
 		}
-	}, [currentUser, navigation])
+	})
 
 	return (
 		<View

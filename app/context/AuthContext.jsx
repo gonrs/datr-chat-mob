@@ -14,7 +14,7 @@ export const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
 	// const [currentUser] = useAuthState(auth)
-	const [currentUser, setCurrentUser] = useState(null)
+	const [currentUser, setCurrentUser] = useState({})
 	const [loading, setLoading] = useState(true)
 	const { theme } = useColor(currentUser)
 	const [isLog, setisLog] = useState(false)
@@ -30,16 +30,16 @@ export const AuthContextProvider = ({ children }) => {
 				setCurrentUser(null)
 				console.log('Пользователь вышел из аккаунта.')
 			}
-			setLoading(false)
+			// setLoading(false)
 		})
 		AsyncStorage.getItem('currentUser').then(user => {
 			console.log('GetUser = ', user)
 			if (user) {
 				setCurrentUser(JSON.parse(user))
-				setLoading(false)
+				// setLoading(false)
 			} else {
 				setCurrentUser(null)
-				setLoading(false)
+				// setLoading(false)
 			}
 			setLoading(false)
 			console.log('effect2')
@@ -48,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
 	}, [isLog])
 
 	return (
-		<AuthContext.Provider value={{ currentUser, theme, setisLog ,isLog }}>
+		<AuthContext.Provider value={{ currentUser, theme, setisLog, isLog }}>
 			{loading ? <Loading /> : children}
 		</AuthContext.Provider>
 	)
