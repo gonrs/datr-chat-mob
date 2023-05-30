@@ -30,12 +30,12 @@ export default function Home({ navigation }) {
 		console.log(currentUser ? true : false)
 	}
 
-	let photourl
-	if (currentUser && currentUser.user) {
-		photourl = currentUser.user.photoURL
-	} else if (currentUser && currentUser.photoURL) {
-		photourl = currentUser.photoURL
-	}
+	// let photourl
+	// if (currentUser && currentUser.user) {
+	// 	photourl = currentUser.user.photoURL
+	// } else if (currentUser && currentUser.photoURL) {
+	// 	photourl = currentUser.photoURL
+	// }
 	useEffect(() => {
 		if (!currentUser) {
 			navigation.navigate('Login')
@@ -57,15 +57,12 @@ export default function Home({ navigation }) {
 								theme === 'white' ? styles.homeTextHed : styles2.homeTextHed
 							}
 						>
-							{currentUser &&
-								(currentUser.user
-									? currentUser.user.displayName
-									: currentUser.displayName)}
+							{currentUser.displayName}
 						</Text>
 						<Image
 							source={
 								currentUser && {
-									uri: photourl,
+									uri: currentUser.photoURL,
 								}
 							}
 							style={theme === 'white' ? styles.homeImg : styles2.homeImg}

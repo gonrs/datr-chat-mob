@@ -59,13 +59,10 @@ export default function Search() {
 					: user.uid + currentUser.user.uid
 		}
 		try {
-			console.log(1)
 			const res = await getDoc(doc(db, 'chats', commbinedId))
 			if (!res.exists()) {
-				console.log(2)
 				await setDoc(doc(db, 'chats', commbinedId), { message: [] })
 				//
-				console.log(3)
 				await updateDoc(doc(db, 'userChats', currentUser.uid), {
 					[commbinedId + '.userInfo']: {
 						uid: user.uid,
@@ -74,7 +71,6 @@ export default function Search() {
 					},
 					[commbinedId + '.date']: serverTimestamp(),
 				})
-				console.log(4)
 				await updateDoc(doc(db, 'userChats', user.uid), {
 					[commbinedId + '.userInfo']: {
 						uid: currentUser.uid,
@@ -83,7 +79,6 @@ export default function Search() {
 					},
 					[commbinedId + '.date']: serverTimestamp(),
 				})
-				console.log(5)
 			}
 		} catch (err) {
 			console.log(err)
@@ -100,7 +95,6 @@ export default function Search() {
 					keyboardType='default'
 					value={userName}
 					onChangeText={text => {
-						console.log(text)
 						handleSearch(text)
 						setUserName(text)
 					}}
