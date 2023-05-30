@@ -28,8 +28,14 @@ const Login = ({ navigation }) => {
 			// 	AsyncStorage.setItem('currentUser', JSON.stringify(user))
 
 			// })
-			const userCredential = await signInWithEmailAndPassword(auth,email, password);
-			await AsyncStorage.setItem('userToken', userCredential.user.uid);
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			)
+			await AsyncStorage.setItem('userToken', userCredential.user.uid)
+			setEmail('')
+			setPassword('')
 		} catch (err) {
 			console.log(err)
 			setError(true)

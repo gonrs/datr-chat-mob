@@ -5,7 +5,7 @@
 		"version": "1.2.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon2.png",
-		"userInterfaceStyle": "light",
+		"userInterfaceStyle": "dark-content",
 		"splash": {
 			"image": "./assets/icon1.png",
 			"resizeMode": "contain",
@@ -17,7 +17,7 @@
 		},
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
+				"foregroundImage": "./assets/icon2.png",
 				"backgroundColor": "#ffffff"
 			},
 			"package": "com.gron.datrmob"

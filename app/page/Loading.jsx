@@ -1,12 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { colors } from '../../assets/theme/color'
 
 export default function Loading() {
 	return (
-		<View>
-			<Text style={{ fontSize: 100 }}>Loading</Text>
+		<View style={styles.container}>
+			<Image source={require('../../assets/icon1.png')} />
 		</View>
 	)
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: colors.dark.bg,
+	},
+})

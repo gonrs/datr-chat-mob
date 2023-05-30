@@ -15,7 +15,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Register = ({ navigation }) => {
 	const { currentUser } = useContext(AuthContext)
-
 	// const loadFonts = async () => {
 	// 	await Font.loadAsync({
 	// 		customFont: require('../../assets/fonts/DMMono-Light.ttf'),
@@ -53,6 +52,9 @@ const Register = ({ navigation }) => {
 				console.log('add users success')
 				await setDoc(doc(db, 'userChats', res.user.uid), {})
 				console.log('add userChat success')
+				setUsername('')
+				setEmail('')
+				setPassword('')
 				// navigation.navigate('Home')
 			} catch (err) {
 				console.log(err)
