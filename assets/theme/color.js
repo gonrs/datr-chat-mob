@@ -6,6 +6,7 @@ export const colors = {
 		reg: '#C4C4CF',
 		text: '#FFFFFF',
 		fog: '#00FFF0',
+		back: '#2E2E3C',
 	},
 	white: {
 		bg: '#ffff',

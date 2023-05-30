@@ -14,23 +14,22 @@ import { AuthContext } from '../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = ({ navigation }) => {
-	const { currentUser, isLog } = useContext(AuthContext)
-
+	const { currentUser } = useContext(AuthContext)
 	const { theme } = useColor(currentUser)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-
 	const [error, setError] = useState(false)
 	const [serverError, setServerError] = useState(false)
 
 	const handleLogin = async () => {
 		try {
 			AsyncStorage.setItem('userPass', password)
-			await signInWithEmailAndPassword(auth, email, password).then(user => {
-				AsyncStorage.setItem('currentUser', JSON.stringify(user))
-				// console.log('Login + ', user.displayName)
-			})
-			navigation.navigate('Home')
+			// await signInWithEmailAndPassword(auth, email, password).then(user => {
+			// 	AsyncStorage.setItem('currentUser', JSON.stringify(user))
+
+			// })
+			const userCredential = await signInWithEmailAndPassword(auth,email, password);
+			await AsyncStorage.setItem('userToken', userCredential.user.uid);
 		} catch (err) {
 			console.log(err)
 			setError(true)
@@ -40,12 +39,6 @@ const Login = ({ navigation }) => {
 	function handleRegirect() {
 		navigation.navigate('Register')
 	}
-
-	useEffect(() => {
-		if (currentUser) {
-			navigation.navigate('Home')
-		}
-	})
 
 	return (
 		<View

@@ -1,36 +1,34 @@
 {
-  "expo": {
-    "name": "datr-mob",
-    "slug": "datr-mob",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.gron.datrmob"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "b86c318f-645a-4075-b151-255bb9ba2c54"
-      }
-    }
-  }
+	"expo": {
+		"name": "datr-mob",
+		"slug": "datr-mob",
+		"version": "1.2.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon2.png",
+		"userInterfaceStyle": "light",
+		"splash": {
+			"image": "./assets/icon1.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#24242F"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"package": "com.gron.datrmob"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "b86c318f-645a-4075-b151-255bb9ba2c54"
+			}
+		}
+	}
 }

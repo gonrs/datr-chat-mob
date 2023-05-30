@@ -21,11 +21,10 @@ export const AuthContextProvider = ({ children }) => {
 	useEffect(() => {
 		console.log('effect')
 		const unsubscribe = auth.onAuthStateChanged(user => {
-			console.log('Auth user = ', user)
 			if (user) {
 				AsyncStorage.setItem('currentUser', JSON.stringify(user))
 				setCurrentUser(user)
-				console.log('Пользователь вошел в аккаунта.')
+				console.log('Пользователь вошел в аккаунт.')
 			} else {
 				setCurrentUser(null)
 				console.log('Пользователь вышел из аккаунта.')

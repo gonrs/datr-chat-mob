@@ -16,10 +16,11 @@ import { signOut } from 'firebase/auth'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Chats from '../components/Chats'
+import Search from '../components/Search'
 
 export default function Home({ navigation }) {
 	const { currentUser, setisLog, isLog } = useContext(AuthContext)
-
 	const { theme } = useColor(currentUser)
 	function logout() {
 		console.log('LogOut')
@@ -39,6 +40,7 @@ export default function Home({ navigation }) {
 		if (!currentUser) {
 			navigation.navigate('Login')
 		}
+		console.log('Navigate')
 	}, [currentUser, navigation, isLog])
 	return (
 		<SafeAreaView style={theme === 'white' ? styles.homeCon : styles2.homeCon}>
@@ -49,45 +51,33 @@ export default function Home({ navigation }) {
 					>
 						DATR MOBILE
 					</Text>
-					<Image
-						source={
-							currentUser && {
-								uri: photourl,
+					<View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+						<Text
+							style={
+								theme === 'white' ? styles.homeTextHed : styles2.homeTextHed
 							}
-						}
-						style={theme === 'white' ? styles.homeImg : styles2.homeImg}
-					/>
+						>
+							{currentUser &&
+								(currentUser.user
+									? currentUser.user.displayName
+									: currentUser.displayName)}
+						</Text>
+						<Image
+							source={
+								currentUser && {
+									uri: photourl,
+								}
+							}
+							style={theme === 'white' ? styles.homeImg : styles2.homeImg}
+						/>
+					</View>
 				</View>
-				<View
-					style={theme === 'white' ? styles.homeSearch : styles2.homeSearch}
-				>
-					<TextInput
-						style={theme === 'white' ? styles.homeInput : styles2.homeInput}
-						placeholder='Search for users...'
-					/>
-				</View>
+				<Search />
 			</View>
-			<ScrollView
-				style={theme === 'white' ? styles.homeUsers : styles2.homeUsers}
-			>
-				<View style={theme === 'white' ? styles.user : styles2.user}>
-					<Image style={theme === 'white' ? styles.userImg : styles2.userImg} />
-					<Text
-						style={theme === 'white' ? styles.userLastmes : styles2.userLastmes}
-					>
-						{currentUser &&
-							(currentUser.user
-								? currentUser.user.displayName
-								: currentUser.displayName)}
-					</Text>
-					<Text style={theme === 'white' ? styles.userTime : styles2.userTime}>
-						Time
-					</Text>
-				</View>
-				<TouchableOpacity onPress={logout}>
-					<Text style={styles.text}>Log out</Text>
-				</TouchableOpacity>
-			</ScrollView>
+			{currentUser && <Chats navigation={navigation} />}
+			<TouchableOpacity onPress={logout}>
+				<Text style={{ color: '#fff', fontSize: 25 }}>Log out</Text>
+			</TouchableOpacity>
 		</SafeAreaView>
 	)
 }
@@ -113,7 +103,7 @@ const styles2 = StyleSheet.create({
 		textAlign: 'center',
 		color: colors.dark.text,
 		padding: 10,
-		paddingLeft: '20%',
+		paddingLeft: '15%',
 		paddingRight: '5%',
 	},
 	homeImg: {
@@ -138,27 +128,10 @@ const styles2 = StyleSheet.create({
 		fontSize: 12,
 		textAlign: 'left',
 	},
-	homeUsers: {
-		width: '100%',
-		// alignItems: 'center',
+	homeTextHed: {
+		fontSize: 20,
+		color: colors.dark.text,
 	},
-	user: {
-		borderRadius: 10,
-		backgroundColor: colors.dark.itemBg,
-		width: '96%',
-		borderBottomLeftRadius: 0,
-		padding: 10,
-		flexDirection: 'row',
-		alignItems: 'center',
-		gap: 10,
-		justifyContent: 'space-between',
-		marginTop: 10,
-		marginLeft: '2%',
-		marginBottom: 2,
-	},
-	userImg: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#fff' },
-	userLastmes: {},
-	userTime: {},
 })
 const styles = StyleSheet.create({
 	homeCon: {
