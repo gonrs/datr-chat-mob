@@ -166,7 +166,7 @@ const styles2 = StyleSheet.create({
 	inputI: {
 		borderTopLeftRadius: 10,
 		borderBottomLeftRadius: 10,
-		minWidth: '65%',
+		width: '65%',
 		padding: 10,
 		backgroundColor: colors.dark.itemBg,
 		color: colors.dark.text,
