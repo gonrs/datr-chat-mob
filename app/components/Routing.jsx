@@ -8,6 +8,7 @@ import Home from '../page/Home'
 import Messages from '../page/Messages'
 import { NavigationContainer } from '@react-navigation/native'
 import { AuthContext } from '../context/AuthContext'
+import Settings from '../page/Settings'
 
 const Stack = createStackNavigator()
 export default function Routing() {
@@ -35,6 +36,11 @@ export default function Routing() {
 							options={{ headerShown: false, animationEnabled: false }}
 							name='Home'
 							component={Home}
+						/>
+						<Stack.Screen
+							options={{ headerShown: false, animationEnabled: false }}
+							name='Settings'
+							component={Settings}
 						/>
 						<Stack.Screen
 							options={{ headerShown: false, animationEnabled: false }}

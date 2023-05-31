@@ -51,7 +51,10 @@ export default function Home({ navigation }) {
 					>
 						DATR MOBILE
 					</Text>
-					<View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+					<TouchableOpacity
+						onPress={() => navigation.navigate('Settings')}
+						style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+					>
 						<Text
 							style={
 								theme === 'white' ? styles.homeTextHed : styles2.homeTextHed
@@ -67,7 +70,7 @@ export default function Home({ navigation }) {
 							}
 							style={theme === 'white' ? styles.homeImg : styles2.homeImg}
 						/>
-					</View>
+					</TouchableOpacity>
 				</View>
 				<Search />
 			</View>
