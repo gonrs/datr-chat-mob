@@ -1,11 +1,11 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useEffect, useRef } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
 import { useColor } from '../hooks/useColor'
 import { colors } from '../../assets/theme/color'
 
-export default function MessageItem({ message }) {
+export default function MessageItem({ message, openImg }) {
 	const { currentUser } = useContext(AuthContext)
 	const { data } = useContext(ChatContext)
 	const { theme } = useColor(currentUser)
@@ -16,39 +16,47 @@ export default function MessageItem({ message }) {
 	const mes = Object.entries(message)
 	const messages = mes[0][1]
 	// console.log(messages.img && messages.img)
-	return (
-		<View
-			style={
-				messages.senderId === currentUser.uid
-					? styles2.messageOwner
-					: styles2.message
-			}
-		>
+	if (theme !== 'standart') {
+		return (
 			<View
 				style={
-					theme === 'white' ? styles.messageContent : styles2.messageContent
+					messages.senderId === currentUser.uid
+						? styles2.messageOwner
+						: styles2.message
 				}
 			>
-				<Text
-					style={theme === 'white' ? styles.messageMes : styles2.messageMes}
+				<View
+					style={
+						theme === 'white' ? styles.messageContent : styles2.messageContent
+					}
 				>
-					{messages?.text}
-				</Text>
+					<Text
+						style={theme === 'white' ? styles.messageMes : styles2.messageMes}
+					>
+						{messages?.text}
+					</Text>
 
-				{messages?.img && (
-					<Image
-						style={{ width: 200, height: 200, padding: 0, margin: 0 }}
-						source={{ uri: messages.img }}
-					/>
-				)}
-				<Text
-					style={theme === 'white' ? styles.messageDate : styles2.messageDate}
-				>
-					{messages?.date}
-				</Text>
+					{messages?.img && (
+						<TouchableOpacity
+							onPress={() => {
+								openImg(messages.img)
+							}}
+						>
+							<Image
+								style={{ width: 200, height: 200, padding: 0, margin: 0 }}
+								source={{ uri: messages.img }}
+							/>
+						</TouchableOpacity>
+					)}
+					<Text
+						style={theme === 'white' ? styles.messageDate : styles2.messageDate}
+					>
+						{messages?.date}
+					</Text>
+				</View>
 			</View>
-		</View>
-	)
+		)
+	}
 }
 
 const styles2 = StyleSheet.create({
@@ -81,4 +89,33 @@ const styles2 = StyleSheet.create({
 		margin: 0,
 	},
 })
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	messageOwner: {
+		padding: 10,
+		alignSelf: 'flex-end',
+	},
+	message: {
+		padding: 10,
+		alignSelf: 'flex-start',
+	},
+	messageDate: {
+		color: colors.white.text,
+		opacity: 0.7,
+		marginTop: 5,
+		fontSize: 12,
+	},
+	messageContent: {
+		backgroundColor: colors.white.header,
+		borderRadius: 10,
+		padding: 10,
+
+		marginLeft: 10,
+		maxWidth: '80%',
+	},
+	messageMes: {
+		color: colors.white.text,
+		fontSize: 16,
+		padding: 0,
+		margin: 0,
+	},
+})

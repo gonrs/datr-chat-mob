@@ -8,11 +8,12 @@ import MessagesContainer from '../components/MessagesContainer'
 import { colors } from '../../assets/theme/color'
 import Input from '../components/Input'
 
-export default function Messages({ navigation }) {
+export default function Messages({ navigation, route }) {
 	const { data } = useContext(ChatContext)
 	// const [showModal, setShowModal] = useState(false)
 	const { currentUser } = useContext(AuthContext)
-	const { theme } = useColor(currentUser)
+	const { theme } = route.params
+	// const { theme } = useColor(currentUser)
 	//
 	//
 	useEffect(() => {
@@ -23,57 +24,61 @@ export default function Messages({ navigation }) {
 	function handlePress() {
 		navigation.goBack()
 	}
-	console.log(data)
-	return (
-		<SafeAreaView>
-			{currentUser && data.user.uid && data.user.uid !== currentUser.uid ? (
-				<View
-					style={
-						theme === 'white' ? styles.chatContainer : styles2.chatContainer
-					}
-				>
+	// console.log(data)
+	if (theme !== 'standart') {
+		return (
+			<SafeAreaView>
+				{currentUser && data.user.uid && data.user.uid !== currentUser.uid ? (
 					<View
-						style={theme === 'white' ? styles.chatHeader : styles2.chatHeader}
+						style={
+							theme === 'white' ? styles.chatContainer : styles2.chatContainer
+						}
 					>
-						<TouchableOpacity onPress={handlePress}>
-							<Text
-								style={
-									theme === 'white'
-										? styles.chatBackButton
-										: styles2.chatBackButton
-								}
-							>
-								Back
-							</Text>
-						</TouchableOpacity>
 						<View
-							style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+							style={theme === 'white' ? styles.chatHeader : styles2.chatHeader}
 						>
-							<Text
-								style={
-									theme === 'white' ? styles.chatUserName : styles2.chatUserName
-								}
+							<TouchableOpacity onPress={handlePress}>
+								<Text
+									style={
+										theme === 'white'
+											? styles.chatBackButton
+											: styles2.chatBackButton
+									}
+								>
+									Back
+								</Text>
+							</TouchableOpacity>
+							<View
+								style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
 							>
-								{data.user.displayName}
-							</Text>
-							<Image
-								source={{ uri: data.user?.photoURL }}
-								style={
-									theme === 'white' ? styles.chatUserImg : styles2.chatUserImg
-								}
-							/>
+								<Text
+									style={
+										theme === 'white'
+											? styles.chatUserName
+											: styles2.chatUserName
+									}
+								>
+									{data.user.displayName}
+								</Text>
+								<Image
+									source={{ uri: data.user?.photoURL }}
+									style={
+										theme === 'white' ? styles.chatUserImg : styles2.chatUserImg
+									}
+								/>
+							</View>
 						</View>
+						<MessagesContainer />
+						<Input />
 					</View>
-					<MessagesContainer />
-					<Input />
-				</View>
-			) : (
-				() => {
-					navigation.navigate('Home')
-				}
-			)}
-		</SafeAreaView>
-	)
+				) : (
+					() => {
+						navigation.navigate('Home')
+					}
+				)}
+			</SafeAreaView>
+		)
+	}
 }
 
 const styles2 = StyleSheet.create({
@@ -104,4 +109,31 @@ const styles2 = StyleSheet.create({
 		fontSize: 18,
 	},
 })
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	chatContainer: {
+		backgroundColor: colors.white.bg,
+		justifyContent: 'space-between',
+		height: '100%',
+	},
+	chatHeader: {
+		flexDirection: 'row',
+		padding: 10,
+		backgroundColor: colors.white.itemBg,
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	chatUserImg: {
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+		backgroundColor: '#fff',
+	},
+	chatUserName: {
+		color: colors.white.text,
+		fontSize: 20,
+	},
+	chatBackButton: {
+		color: colors.white.text,
+		fontSize: 18,
+	},
+})

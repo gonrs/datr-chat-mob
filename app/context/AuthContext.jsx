@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
 				}
 				// console.log('Пользователь вышел из аккаунта.')
 			}
-			console.log('currentUser = ', user)
+			// console.log('currentUser = ', user)
 			// setLoading(false)
 		})
 		AsyncStorage.getItem('currentUser').then(user => {
@@ -56,14 +56,18 @@ export const AuthContextProvider = ({ children }) => {
 	async function signInWithToken(token) {
 		try {
 			const userCredential = await signInWithCustomToken(auth, token)
-			console.log('User signed in successfully')
+			// console.log('User signed in successfully')
 		} catch (error) {
-			console.log('Failed to sign in with token: ', error.message)
+			// console.log('Failed to sign in with token: ', error.message)
 		}
 	}
 	return (
 		<AuthContext.Provider value={{ currentUser, theme, setisLog, isLog }}>
-			{loading ? <Loading /> : children}
+			{loading || (currentUser && theme === 'standart') ? (
+				<Loading />
+			) : (
+				children
+			)}
 		</AuthContext.Provider>
 	)
 }

@@ -184,4 +184,48 @@ const styles2 = StyleSheet.create({
 		fontSize: 14,
 	},
 })
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	homeSearch: {
+		width: '100%',
+		backgroundColor: colors.white.header,
+		padding: 10,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	homeInput: {
+		textAlign: 'center',
+		borderRadius: 10,
+		backgroundColor: colors.white.itemBg,
+		minWidth: '60%',
+		padding: 6,
+		fontSize: 15,
+		textAlign: 'left',
+		color: colors.white.text,
+	},
+	user: {
+		borderRadius: 10,
+		backgroundColor: colors.white.itemBg,
+		width: 300,
+		padding: 10,
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 10,
+		justifyContent: 'space-between',
+		marginTop: 10,
+		marginLeft: '2%',
+		marginBottom: 2,
+	},
+	userImg: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#fff' },
+	userLastmes: {
+		color: colors.white.text,
+	},
+	userTime: {},
+	homeTextHed: {
+		fontSize: 12,
+		color: colors.white.text,
+	},
+	userNameTitle: {
+		color: colors.white.text,
+		fontSize: 14,
+	},
+})

@@ -9,11 +9,12 @@ export const colors = {
 		back: '#2E2E3C',
 	},
 	white: {
-		bg: '#ffff',
-		header: '#fff',
-		itemBg: '#fff',
-		reg: '#fff',
-		text: '#fff',
-		fog: '#fff',
+		bg: '#C0C0C0',
+		header: '#E2E2EA',
+		itemBg: '#EFEFFF',
+		reg: '#EFEFFF',
+		text: '#000000',
+		fog: '#00FFF0',
+		back: '#AFAFAF',
 	},
 }

@@ -52,7 +52,7 @@ export default function Home({ navigation }) {
 						DATR MOBILE
 					</Text>
 					<TouchableOpacity
-						onPress={() => navigation.navigate('Settings')}
+						onPress={() => navigation.navigate('Settings', { theme })}
 						style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
 					>
 						<Text
@@ -136,7 +136,52 @@ const styles2 = StyleSheet.create({
 const styles = StyleSheet.create({
 	homeCon: {
 		flex: 1,
+		backgroundColor: colors.white.bg,
+		// justifyContent: 'flex-start',
+		alignItems: 'center',
+		// height: '100%',
+	},
+	homeHeader: {
+		backgroundColor: colors.white.header,
+		width: '100%',
+	},
+	topInfo: {
+		width: '100%',
+		backgroundColor: colors.white.header,
+		flexDirection: 'row',
+	},
+	homeTitle: {
+		fontSize: 25,
+		textAlign: 'center',
+		color: colors.white.text,
+		padding: 10,
+		paddingLeft: '15%',
+		paddingRight: '5%',
+	},
+	homeImg: {
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+		backgroundColor: '#fff',
+	},
+	homeSearch: {
+		width: '100%',
+		backgroundColor: colors.white.header,
+		padding: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	homeInput: {
+		textAlign: 'center',
+		borderRadius: 10,
+		backgroundColor: colors.white.itemBg,
+		minWidth: '60%',
+		padding: 6,
+		fontSize: 12,
+		textAlign: 'left',
+	},
+	homeTextHed: {
+		fontSize: 20,
+		color: colors.white.text,
 	},
 })

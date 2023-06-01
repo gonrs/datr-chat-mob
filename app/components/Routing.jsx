@@ -9,11 +9,13 @@ import Messages from '../page/Messages'
 import { NavigationContainer } from '@react-navigation/native'
 import { AuthContext } from '../context/AuthContext'
 import Settings from '../page/Settings'
+import { useColor } from '../hooks/useColor'
 
 const Stack = createStackNavigator()
 export default function Routing() {
 	const { currentUser } = useContext(AuthContext)
-	console.log(currentUser)
+	const { theme } = useColor(currentUser)
+	// console.log(currentUser)
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
@@ -35,16 +37,19 @@ export default function Routing() {
 						<Stack.Screen
 							options={{ headerShown: false, animationEnabled: false }}
 							name='Home'
+							initialParams={{ theme }}
 							component={Home}
 						/>
 						<Stack.Screen
 							options={{ headerShown: false, animationEnabled: false }}
 							name='Settings'
+							// initialParams={{ theme: theme }}
 							component={Settings}
 						/>
 						<Stack.Screen
 							options={{ headerShown: false, animationEnabled: false }}
 							name='Messages'
+							// initialParams={{ theme: theme }}
 							component={Messages}
 						/>
 					</>

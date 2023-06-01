@@ -33,8 +33,8 @@ export default function Chats({ navigation }) {
 	function handleSelect(user) {
 		dispatch({ type: 'CHENGE_USER', payload: user })
 
-		console.log('qwe +', data)
-		navigation.navigate('Messages')
+		// console.log('qwe +', data)
+		navigation.navigate('Messages', { theme })
 	}
 	const { theme } = useColor(currentUser)
 	const sortedChats = Object.entries(chats).sort(
@@ -133,4 +133,36 @@ const styles2 = StyleSheet.create({
 		fontSize: 14,
 	},
 })
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+	homeUsers: {
+		width: '100%',
+		// alignItems: 'center',
+	},
+	user: {
+		borderRadius: 10,
+		backgroundColor: colors.white.itemBg,
+		width: '96%',
+		borderBottomLeftRadius: 0,
+		padding: 10,
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 10,
+		justifyContent: 'space-between',
+		marginTop: 10,
+		marginLeft: '2%',
+		marginBottom: 2,
+	},
+	userImg: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#fff' },
+	userLastmes: {
+		color: colors.white.text,
+	},
+	userTime: {},
+	homeTextHed: {
+		fontSize: 12,
+		color: colors.white.text,
+	},
+	userNameTitle: {
+		color: colors.white.text,
+		fontSize: 14,
+	},
+})
