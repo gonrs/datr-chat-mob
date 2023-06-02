@@ -6,13 +6,14 @@ import { AuthContext } from '../context/AuthContext'
 import { colors } from '../../assets/theme/color'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { doc, updateDoc } from 'firebase/firestore'
-import { db, storage } from '../../firebase'
+import { auth, db, storage } from '../../firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import * as ImagePicker from 'expo-image-picker'
-import { updateProfile } from 'firebase/auth'
+import { signOut, updateProfile } from 'firebase/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export default function Settings({ navigation, route }) {
-	const { currentUser } = useContext(AuthContext)
+export default function Settings({ navigation }) {
+	const { currentUser, setisLog, isLog } = useContext(AuthContext)
 	// const { theme } = route.params
 	const { theme } = useColor(currentUser)
 	//
@@ -21,6 +22,14 @@ export default function Settings({ navigation, route }) {
 	//
 	const bgFile = file ? `${file}` : `${currentUser.photoURL}`
 	console.log(file)
+	//
+	function logout() {
+		console.log('LogOut')
+		AsyncStorage.removeItem('currentUser')
+		setisLog(!isLog)
+		signOut(auth)
+		console.log(currentUser ? true : false)
+	}
 	//
 	async function handleSubmit() {
 		console.log(1)
@@ -103,6 +112,7 @@ export default function Settings({ navigation, route }) {
 										photoURL: downloadURL,
 									})
 									try {
+										console.log(currentUser)
 										await updateProfile(currentUser, {
 											displayName: currentUser.displayName,
 											photoURL: downloadURL,
@@ -288,6 +298,25 @@ export default function Settings({ navigation, route }) {
 						></TouchableOpacity>
 					</View>
 				</View>
+				<View
+					style={{
+						flexDirection: 'row',
+						justifyContent: 'center',
+						marginTop: 30,
+					}}
+				>
+					<TouchableOpacity onPress={logout}>
+						<Text
+							style={
+								theme === 'white'
+									? styles.settingsLogout
+									: styles2.settingsLogout
+							}
+						>
+							Log out
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</ScrollView>
 		</SafeAreaView>
 	)
@@ -354,8 +383,24 @@ const styles2 = StyleSheet.create({
 		width: 90,
 		borderRadius: 10,
 	},
+	settingsLogout: {
+		color: colors.dark.text,
+		fontSize: 30,
+		textAlign: 'center',
+		padding: 20,
+		borderRadius: 10,
+		backgroundColor: colors.dark.itemBg,
+	},
 })
 const styles = StyleSheet.create({
+	settingsLogout: {
+		color: colors.dark.text,
+		fontSize: 30,
+		textAlign: 'center',
+		padding: 20,
+		borderRadius: 10,
+		backgroundColor: colors.dark.itemBg,
+	},
 	settingsThemeChange: {
 		backgroundColor: colors.dark.back,
 		height: 60,

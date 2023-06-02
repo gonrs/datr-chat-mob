@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }) => {
 	}, [isLog])
 	async function signInWithToken(token) {
 		try {
-			const userCredential = await signInWithCustomToken(auth, token)
+			await signInWithCustomToken(auth, token)
 			// console.log('User signed in successfully')
 		} catch (error) {
 			// console.log('Failed to sign in with token: ', error.message)
