@@ -1,17 +1,132 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useColor } from '../hooks/useColor'
 import { AuthContext } from '../context/AuthContext'
 import { colors } from '../../assets/theme/color'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import { doc, updateDoc } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { db, storage } from '../../firebase'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import * as ImagePicker from 'expo-image-picker'
+import { updateProfile } from 'firebase/auth'
 
 export default function Settings({ navigation, route }) {
 	const { currentUser } = useContext(AuthContext)
 	// const { theme } = route.params
 	const { theme } = useColor(currentUser)
+	//
+	const [value, setValue] = useState(currentUser.displayName)
+	const [file, setFile] = useState(null)
+	//
+	const bgFile = file ? `${file}` : `${currentUser.photoURL}`
+	console.log(file)
+	//
+	async function handleSubmit() {
+		console.log(1)
+		if (value !== currentUser.displayName || file !== null) {
+			console.log(2)
+			if (value !== currentUser.displayName && file !== null && value !== '') {
+				try {
+					const response = await fetch(file)
+					const blob = await response.blob()
+					const storageRef = ref(storage, currentUser.email)
+					const uploadTask = uploadBytesResumable(storageRef, blob)
+					uploadTask.on(
+						error => {
+							console.log(error)
+							console.log('upload error')
+						},
+						() => {
+							getDownloadURL(uploadTask.snapshot.ref).then(
+								async downloadURL => {
+									await updateProfile(currentUser, {
+										displayName: value,
+										photoURL: downloadURL,
+									})
+									await updateDoc(doc(db, 'users', currentUser?.uid), {
+										displayName: value,
+										photoURL: downloadURL,
+									})
+								}
+							)
+						}
+					)
+				} catch (err) {
+					console.log(err)
+				}
+			} else if (
+				value !== currentUser.displayName &&
+				file === null &&
+				value !== ''
+			) {
+				try {
+					await updateProfile(currentUser, {
+						displayName: value,
+						photoURL: currentUser.photoURL,
+					})
+					await updateDoc(doc(db, 'users', currentUser?.uid), {
+						displayName: value,
+						photoURL: currentUser.photoURL,
+					})
+				} catch (err) {
+					console.log(err)
+				}
+			} else if (value === currentUser.displayName && file !== null) {
+				console.log(4)
+				try {
+					console.log(5)
+					const response = await fetch(file)
+					const blob = await response.blob()
+					const storageRef = ref(storage, currentUser.email)
+					const uploadTask = uploadBytesResumable(storageRef, blob)
+					console.log(6)
+					uploadTask.on(
+						'state_changed',
+						snapshot => {
+							const progress =
+								(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+							console.log(`Upload is ${progress}% done`)
+						},
+						error => {
+							console.log(error)
+							console.log('upload error')
+						},
+						() => {
+							getDownloadURL(uploadTask.snapshot.ref)
+								.then(async downloadURL => {
+									console.log(7)
+
+									console.log(8)
+									await updateDoc(doc(db, 'users', currentUser?.uid), {
+										displayName: currentUser.displayName,
+										photoURL: downloadURL,
+									})
+									try {
+										await updateProfile(currentUser, {
+											displayName: currentUser.displayName,
+											photoURL: downloadURL,
+										})
+									} catch (e) {
+										console.log(e)
+									}
+								})
+								.catch(err => console.log(err))
+						}
+					)
+				} catch (err) {
+					console.log('err')
+				}
+			}
+		}
+	}
+	async function changeImg() {
+		const result = await ImagePicker.launchImageLibraryAsync({})
+		if (!result.canceled) {
+			setFile(result.assets[0].uri)
+		}
+	}
+	//
 	function handlePress() {
 		navigation.goBack()
 	}
@@ -66,8 +181,9 @@ export default function Settings({ navigation, route }) {
 						gap: 20,
 					}}
 				>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={changeImg}>
 						<Image
+							source={{ uri: bgFile }}
 							style={
 								theme === 'white' ? styles.settingsImg : styles2.settingsImg
 							}
@@ -80,6 +196,7 @@ export default function Settings({ navigation, route }) {
 						placeholder='Change userName'
 					/>
 					<TouchableOpacity
+						onPress={handleSubmit}
 						style={theme === 'white' ? styles.settingsBtn : styles2.settingsBtn}
 					>
 						<Text
@@ -89,7 +206,7 @@ export default function Settings({ navigation, route }) {
 									: styles2.settingsButton
 							}
 						>
-							Save{' '}
+							Save
 						</Text>
 					</TouchableOpacity>
 				</View>

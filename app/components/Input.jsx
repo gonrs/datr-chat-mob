@@ -27,10 +27,7 @@ export default function Input() {
 	const { data } = useContext(ChatContext)
 	const currentTime = new Date().toLocaleTimeString()
 	const handlePress = async () => {
-		const result = await ImagePicker.launchImageLibraryAsync({
-			allowsEditing: true,
-			quality: 1,
-		})
+		const result = await ImagePicker.launchImageLibraryAsync({})
 		if (!result.canceled) {
 			setImg(result.assets[0].uri)
 		}

@@ -23,7 +23,7 @@ const Login = ({ navigation }) => {
 
 	const handleLogin = async () => {
 		try {
-			AsyncStorage.setItem('userPass', password)
+			// AsyncStorage.setItem('userPass', password)
 			// await signInWithEmailAndPassword(auth, email, password).then(user => {
 			// 	AsyncStorage.setItem('currentUser', JSON.stringify(user))
 
@@ -33,7 +33,7 @@ const Login = ({ navigation }) => {
 				email,
 				password
 			)
-			await AsyncStorage.setItem('userToken', userCredential.user.uid)
+			// await AsyncStorage.setItem('userToken', userCredential.user.uid)
 			setEmail('')
 			setPassword('')
 		} catch (err) {
