@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "datr-mob",
 		"slug": "datr-mob",
-		"version": "1.2.5",
+		"version": "1.2.6",
 		"orientation": "portrait",
 		"icon": "./assets/icon2.png",
 		"userInterfaceStyle": "dark-content",
