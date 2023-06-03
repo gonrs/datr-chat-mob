@@ -37,9 +37,9 @@ export default function Chats({ navigation }) {
 		navigation.navigate('Messages', { theme })
 	}
 	const { theme } = useColor(currentUser)
-	const sortedChats = Object.entries(chats).sort(
-		(a, b) => b[1].date - a[1].date
-	)
+	const sortedChats = chats
+		? Object.entries(chats).sort((a, b) => b[1].date - a[1].date)
+		: {}
 	return (
 		<View style={theme === 'white' ? styles.homeUsers : styles2.homeUsers}>
 			{chats && (

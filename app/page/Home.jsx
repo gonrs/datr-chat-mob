@@ -75,9 +75,9 @@ export default function Home({ navigation }) {
 				<Search />
 			</View>
 			{currentUser && <Chats navigation={navigation} />}
-			<TouchableOpacity onPress={logout}>
+			{/* <TouchableOpacity onPress={logout}>
 				<Text style={{ color: '#fff', fontSize: 25 }}>Log out</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 		</SafeAreaView>
 	)
 }

@@ -34,7 +34,9 @@ const Register = ({ navigation }) => {
 			try {
 				const res = await createUserWithEmailAndPassword(auth, email, password)
 				// console.log(res)
-				AsyncStorage.setItem('currentUser', JSON.stringify(res))
+				// if (res) {
+				// 	AsyncStorage.setItem('currentUser', JSON.stringify(res))
+				// }
 				await updateProfile(res.user, {
 					displayName,
 					photoURL:
