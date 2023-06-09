@@ -46,6 +46,7 @@ export default function Chats({ navigation }) {
 			{chats && (
 				<FlatList
 					data={sortedChats}
+					style={{ marginBottom: 10, width: '100%' }}
 					renderItem={({ item }) => {
 						const chat = item[1]
 						let lastMessageText = chat.lastMessage?.text ?? ''

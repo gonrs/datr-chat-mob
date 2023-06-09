@@ -73,9 +73,7 @@ export default function Home({ navigation }) {
 				</View>
 				<Search />
 			</View>
-			<ScrollView style={{ paddingBottom: 20 }}>
-				{currentUser && <Chats navigation={navigation} />}
-			</ScrollView>
+			{currentUser && <Chats navigation={navigation} />}
 			{/* <TouchableOpacity onPress={logout}>
 				<Text style={{ color: '#fff', fontSize: 25 }}>Log out</Text>
 			</TouchableOpacity> */}

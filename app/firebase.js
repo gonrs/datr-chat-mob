@@ -3,23 +3,23 @@ import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 import { getFirestore } from 'firebase/firestore'
 import {
-	REACT_APP_API_KEY,
-	REACT_APP_AUTH_DOMAIN,
-	REACT_APP_PROJECT_ID,
-	REACT_APP_STORAGE_BUCKET,
-	REACT_APP_SENDER_ID,
-	REACT_APP_APP_ID,
-	REACT_APP_MEASUREMENT_ID,
-} from 'react-native-dotenv'
+	API_API_KEY,
+	API_AUTH_DOMAIN,
+	API_PROJECT_ID,
+	API_STORAGE_BUCKET,
+	API_SENDER_ID,
+	API_APP_ID,
+	API_MEASUREMENT_ID,
+} from '@env'
 
 const firebaseConfig = {
-	apiKey: REACT_APP_API_KEY,
-	authDomain: REACT_APP_AUTH_DOMAIN,
-	projectId: REACT_APP_PROJECT_ID,
-	storageBucket: REACT_APP_STORAGE_BUCKET,
-	messagingSenderId: REACT_APP_SENDER_ID,
-	appId: REACT_APP_APP_ID,
-	measurementId: REACT_APP_MEASUREMENT_ID,
+	apiKey: API_API_KEY,
+	authDomain: API_AUTH_DOMAIN,
+	projectId: API_PROJECT_ID,
+	storageBucket: API_STORAGE_BUCKET,
+	messagingSenderId: API_SENDER_ID,
+	appId: API_APP_ID,
+	measurementId: API_MEASUREMENT_ID,
 }
 console.log(process.env.REACT_APP_API_KEY)
 export const app = initializeApp(firebaseConfig)
