@@ -1,6 +1,7 @@
 import {
 	FlatList,
 	Image,
+	SafeAreaView,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -12,7 +13,7 @@ import { useColor } from '../hooks/useColor'
 import { AuthContext } from '../context/AuthContext'
 import { ChatContext } from '../context/ChatContext'
 import { doc, onSnapshot } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { db } from '../firebase'
 
 export default function Chats({ navigation }) {
 	const [chats, setChats] = useState([])
@@ -41,7 +42,7 @@ export default function Chats({ navigation }) {
 		? Object.entries(chats).sort((a, b) => b[1].date - a[1].date)
 		: {}
 	return (
-		<View style={theme === 'white' ? styles.homeUsers : styles2.homeUsers}>
+		<>
 			{chats && (
 				<FlatList
 					data={sortedChats}
@@ -96,7 +97,7 @@ export default function Chats({ navigation }) {
 					keyExtractor={item => item[0]}
 				/>
 			)}
-		</View>
+		</>
 	)
 }
 

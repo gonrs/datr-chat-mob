@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react'
 import { AuthContext } from './AuthContext.jsx'
 import { useState } from 'react'
 import { doc, onSnapshot } from 'firebase/firestore'
-import { db } from '../../firebase.js'
+import { db } from '../firebase.js'
 
 export const ChatContext = createContext()
 

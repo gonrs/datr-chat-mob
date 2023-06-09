@@ -9,7 +9,7 @@ import {
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { ChatContext } from '../context/ChatContext'
-import { db } from '../../firebase'
+import { db } from '../firebase'
 import { doc, onSnapshot } from 'firebase/firestore'
 import MessageItem from './MessageItem'
 import { AuthContext } from '../context/AuthContext'

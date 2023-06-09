@@ -14,7 +14,7 @@ import {
 	serverTimestamp,
 	doc,
 } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { db } from '../firebase'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 //
 export default function Search() {

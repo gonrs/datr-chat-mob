@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
-import { auth, db } from '../../firebase'
+import { auth, db } from '../firebase'
 import { colors } from '../../assets/theme/color'
 import { AuthContext } from '../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'

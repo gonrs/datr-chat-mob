@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { colors } from '../../assets/theme/color'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../firebase'
+import { auth } from '../firebase'
 import { useColor } from '../hooks/useColor'
 import { AuthContext } from '../context/AuthContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'

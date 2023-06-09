@@ -10,8 +10,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useColor } from '../hooks/useColor'
 import { colors } from '../../assets/theme/color'
-import { TextInput } from 'react-native-gesture-handler'
-import { auth } from '../../firebase'
+import { auth } from '../firebase'
 import { signOut } from 'firebase/auth'
 
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -74,7 +73,9 @@ export default function Home({ navigation }) {
 				</View>
 				<Search />
 			</View>
-			{currentUser && <Chats navigation={navigation} />}
+			<ScrollView style={{ paddingBottom: 20 }}>
+				{currentUser && <Chats navigation={navigation} />}
+			</ScrollView>
 			{/* <TouchableOpacity onPress={logout}>
 				<Text style={{ color: '#fff', fontSize: 25 }}>Log out</Text>
 			</TouchableOpacity> */}
