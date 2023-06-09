@@ -38,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
 	}, [isLog])
 	async function signInWithToken(token) {
 		try {
-			await signInWithCustomToken(auth, token)
+			// await signInWithCustomToken(auth, token)
 		} catch (error) {
 			console.log(error)
 			console.log('error:')
