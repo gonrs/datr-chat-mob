@@ -21,7 +21,7 @@
     "expo-image-picker": "~14.1.1",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.22.1",
-    "firebase-tools": "^0.1.6",
+    "firebase-tools": "^12.4.0",
     "fontfaceobserver": "^2.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
